@@ -2,10 +2,10 @@ import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
-  //   Menu,
-  //   MenuButton,
-  //   MenuItem,
-  //   MenuItems,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
 } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -14,23 +14,28 @@ import {
   UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
 const navigation = [
   { name: "Dashboard", href: "#", current: false },
   { name: "Categories", href: "#", current: true },
   { name: "About Us", href: "#", current: false },
   { name: "Contact Us", href: "#", current: false },
 ];
+
 const customClassNames = (...classes) => {
   return classes.filter(Boolean).join(" ");
 };
+
 const Header = () => {
+  const { user } = useSelector((state) => state.user);
+  console.log(user);
   return (
     <Disclosure as="nav" className="bg-gray-800 ">
       <div className="mx-auto max-w-[1440px] px-2 sm:px-6 lg:px-8 ">
         <div className="relative flex items-center justify-between min-h-[100px]">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            {/* Mobile menu button*/}
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
@@ -46,11 +51,6 @@ const Header = () => {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center text-white font-semibold text-xl">
-              {/* <img
-                  alt="Your Company"
-                  src="https://banner2.cleanpng.com/20180802/tlv/kisspng-logo-emblem-festina-brand-watch-festina-logo-svg-vector-amp-png-transparent-ve-5b63418829d864.0411573315332314961714.jpg"
-                  className="h-8 w-auto"
-                /> */}
               Company Logo
             </div>
             <div className="hidden sm:block sm:flex-1 sm:justify-center">
@@ -90,8 +90,8 @@ const Header = () => {
               <span className="sr-only">View notifications</span>
               <ShoppingCartIcon aria-hidden="true" className="h-6 w-6" />
             </button>
-            {/* Profile dropdown */}
-            {/* <Menu as="div" className="relative ml-3">
+            {user?.email ? (
+              <Menu as="div" className="relative ml-3">
                 <div>
                   <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span className="absolute -inset-1.5" />
@@ -132,17 +132,19 @@ const Header = () => {
                     </a>
                   </MenuItem>
                 </MenuItems>
-              </Menu> */}
-            <Link to={"/login"}>
-              <button
-                type="button"
-                className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white"
-              >
-                <span className="absolute -inset-1.5" />
-                <span className="sr-only">View notifications</span>
-                <UserCircleIcon aria-hidden="true" className="h-6 w-6" />
-              </button>
-            </Link>
+              </Menu>
+            ) : (
+              <Link to={"/login"}>
+                <button
+                  type="button"
+                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white"
+                >
+                  <span className="absolute -inset-1.5" />
+                  <span className="sr-only">Open user menu</span>
+                  <UserCircleIcon aria-hidden="true" className="h-6 w-6" />
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -169,4 +171,5 @@ const Header = () => {
     </Disclosure>
   );
 };
+
 export default Header;
