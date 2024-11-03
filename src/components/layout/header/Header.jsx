@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import {
   Disclosure,
   DisclosureButton,
@@ -14,14 +15,15 @@ import {
   UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { setUser } from "../../../redux/slice/UserSlice";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: false },
-  { name: "Categories", href: "#", current: true },
-  { name: "About Us", href: "#", current: false },
-  { name: "Contact Us", href: "#", current: false },
+  { name: "Home", to: "/", current: true },
+  { name: "Categories", to: "/categories", current: false },
+  { name: "About", to: "/about", current: false },
+  { name: "Contact", to: "/contact", current: false },
 ];
 
 const customClassNames = (...classes) => {
@@ -29,10 +31,19 @@ const customClassNames = (...classes) => {
 };
 
 const Header = () => {
+  const location = useLocation();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   console.log(user);
+
+  const itemCount = 1;
+
+  const handleOnLogout = () => {
+    dispatch(setUser({}));
+  };
+
   return (
-    <Disclosure as="nav" className="bg-gray-800 ">
+    <Disclosure as="nav" className="bg-blue-800 dark:bg-gray-800">
       <div className="mx-auto max-w-[1440px] px-2 sm:px-6 lg:px-8 ">
         <div className="relative flex items-center justify-between min-h-[100px]">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -50,26 +61,32 @@ const Header = () => {
             </DisclosureButton>
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex flex-shrink-0 items-center text-white font-semibold text-xl">
-              Company Logo
-            </div>
+            <Link
+              to={"/"}
+              className="flex flex-shrink-0 items-center text-white font-semibold text-xl"
+            >
+              SHOPHUB LOGO
+            </Link>
             <div className="hidden sm:block sm:flex-1 sm:justify-center">
               <div className="flex space-x-4 justify-center">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    aria-current={item.current ? "page" : undefined}
-                    className={customClassNames(
-                      item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "rounded-md px-3 py-2 text-sm font-medium"
-                    )}
-                  >
-                    {item.name}
-                  </a>
-                ))}
+                {navigation.map((item) => {
+                  const isCurrent = location.pathname === item.to;
+                  return (
+                    <Link key={item.name} to={item?.to}>
+                      <DisclosureButton
+                        aria-current={isCurrent ? "page" : undefined}
+                        className={customClassNames(
+                          isCurrent
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "block rounded-md px-3 py-2 text-base font-medium"
+                        )}
+                      >
+                        {item.name}
+                      </DisclosureButton>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -87,8 +104,13 @@ const Header = () => {
               className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
             >
               <span className="absolute -inset-1.5" />
-              <span className="sr-only">View notifications</span>
+              <span className="sr-only">View Cart</span>
               <ShoppingCartIcon aria-hidden="true" className="h-6 w-6" />
+              {itemCount > 0 && (
+                <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 border-2 border-white rounded-full">
+                  {itemCount}
+                </span>
+              )}
             </button>
             {user?.email ? (
               <Menu as="div" className="relative ml-3">
@@ -124,12 +146,10 @@ const Header = () => {
                     </a>
                   </MenuItem>
                   <MenuItem>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
-                    >
-                      Sign out
-                    </a>
+                    <div className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                      onClick={handleOnLogout}
+                      Logout
+                    </div>
                   </MenuItem>
                 </MenuItems>
               </Menu>
@@ -140,7 +160,7 @@ const Header = () => {
                   className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white"
                 >
                   <span className="absolute -inset-1.5" />
-                  <span className="sr-only">Open user menu</span>
+                  <span className="sr-only">Login</span>
                   <UserCircleIcon aria-hidden="true" className="h-6 w-6" />
                 </button>
               </Link>
@@ -150,11 +170,8 @@ const Header = () => {
       </div>
       <DisclosurePanel className="sm:hidden">
         <div className="space-y-1 px-2 pb-3 pt-2">
-          {navigation.map((item) => (
+          <Link key={item.name} to={item?.to}>
             <DisclosureButton
-              key={item.name}
-              as="a"
-              href={item.href}
               aria-current={item.current ? "page" : undefined}
               className={customClassNames(
                 item.current
@@ -165,7 +182,7 @@ const Header = () => {
             >
               {item.name}
             </DisclosureButton>
-          ))}
+          </Link>
         </div>
       </DisclosurePanel>
     </Disclosure>

@@ -6,6 +6,8 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Header from "./components/layout/header/Header";
 import Footer from "./components/layout/footer/Footer";
+import Contact from "./pages/Contact/Contact";
+import About from "./pages/About/About";
 
 const appRouter = createBrowserRouter([
   {
@@ -22,6 +24,15 @@ const appRouter = createBrowserRouter([
         element: <Login />,
       },
       {
+        path: "/login",
+        element: <Contact />,
+      },
+      {
+        path: "/login",
+        element: <About />,
+      },
+
+      {
         path: "/signup",
         element: <Signup />,
       },
@@ -32,7 +43,7 @@ function DefaultLayout() {
   return (
     <>
       <Header />
-      <main className="mx-auto max-w-[1440px] px-2 sm:px-6 lg:px-8 py-6 min-h-[80vh]">
+      <main className="mx-auto  min-h-[80vh]">
         <Outlet />
       </main>
       <Footer />
