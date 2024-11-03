@@ -1,13 +1,13 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import "./App.css";
-import ErrorElement from "./components/layout/404 element/ErrorElement";
-import Home from "./pages/home/Home";
-import Login from "./pages/login/Login";
-import Signup from "./pages/signup/Signup";
-import Header from "./components/layout/header/Header";
-import Footer from "./components/layout/footer/Footer";
-import Contact from "./pages/Contact/Contact";
-import About from "./pages/About/About";
+import ErrorElement from "./components/layout/ErrorElement";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
 
 const appRouter = createBrowserRouter([
   {

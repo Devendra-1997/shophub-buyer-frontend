@@ -1,4 +1,4 @@
-import { CustomForm } from "../../components/custom/CustomForm";
+import { CustomForm } from "../components/custom/CustomForm";
 
 const Signup = () => {
   const inputs = [
