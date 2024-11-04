@@ -8,6 +8,9 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import Categories from "./pages/Categories";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 
 const appRouter = createBrowserRouter([
   {
@@ -20,15 +23,32 @@ const appRouter = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/categories",
+        element: <Categories />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
+      },
+      {
+        path: "/products",
+        element: <Home />,
+      },
+
+      {
         path: "/login",
         element: <Login />,
       },
       {
-        path: "/login",
+        path: "/contact",
         element: <Contact />,
       },
       {
-        path: "/login",
+        path: "/about",
         element: <About />,
       },
 
