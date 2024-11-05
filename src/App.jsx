@@ -1,5 +1,6 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 import ErrorElement from "./components/layout/ErrorElement";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -11,6 +12,9 @@ import About from "./pages/About";
 import Categories from "./pages/Categories";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import Payment from "./pages/Payment";
+import ProductLanding from "./pages/ProductLanding";
+import Profile from "./pages/Profile";
 
 const appRouter = createBrowserRouter([
   {
@@ -27,6 +31,15 @@ const appRouter = createBrowserRouter([
         element: <Categories />,
       },
       {
+        path: "/products",
+        element: <Home />,
+      },
+      {
+        path: "/product/:_id",
+        element: <ProductLanding />,
+      },
+
+      {
         path: "/cart",
         element: <Cart />,
       },
@@ -35,8 +48,12 @@ const appRouter = createBrowserRouter([
         element: <Checkout />,
       },
       {
-        path: "/products",
-        element: <Home />,
+        path: "/payment",
+        element: <Payment />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
 
       {
