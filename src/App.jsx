@@ -15,6 +15,7 @@ import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
 import ProductLanding from "./pages/ProductLanding";
 import Profile from "./pages/Profile";
+import { ForgetPassword } from "./pages/ForgetPassword";
 
 const appRouter = createBrowserRouter([
   {
@@ -72,6 +73,11 @@ const appRouter = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
+      },
+
+      {
+        path: "/forget-password",
+        element: <ForgetPassword />,
       },
     ],
   },
