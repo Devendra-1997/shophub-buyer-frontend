@@ -16,6 +16,7 @@ import Payment from "./pages/Payment";
 import ProductLanding from "./pages/ProductLanding";
 import Profile from "./pages/Profile";
 import { ForgetPassword } from "./pages/ForgetPassword";
+import VerifyAccount from "./pages/VerifyAccount";
 
 const appRouter = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
+      },
+      {
+        path: "/verify-account",
+        element: <VerifyAccount />,
       },
 
       {
